@@ -2,15 +2,10 @@ package fr.umontpellier.iut.vues;
 
 import fr.umontpellier.iut.IJeu;
 import fr.umontpellier.iut.IJoueur;
-import fr.umontpellier.iut.rails.Destination;
-import fr.umontpellier.iut.rails.Joueur;
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -43,6 +38,9 @@ public class VueJoueurCourant extends VBox {
         public void changed(ObservableValue<? extends IJoueur> observableValue, IJoueur iJoueur, IJoueur t1) {
             Platform.runLater(() -> {
                 nomJoueur.setText(t1.getNom());
+                for (int i = 0; i < t1.getCartesWagon().size(); i++) {
+                    cartesJoueurCourant.getChildren().add(new Label (t1.getCartesWagon().get(i).toString()));
+                }
             });
         }
     };
