@@ -47,9 +47,9 @@ public class VueDuJeu extends VBox {
         return jeu;
     }
 
-    public Label trouveLabelDestination(IDestination id){//pas sûre
+    public Label trouveLabelDestination(IDestination id){
         for (int i = 0; i < listeDestinations.getChildren().size() ; i++) {
-            Label label = new Label(""+listeDestinations.getChildren().get(i));
+            Label label =  (Label) listeDestinations.getChildren().get(i);
             if (label.getText().equals(id.getNom())){
                 return label;
             }
