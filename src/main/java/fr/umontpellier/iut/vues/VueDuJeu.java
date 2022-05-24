@@ -26,18 +26,17 @@ public class VueDuJeu extends VBox {
     private VuePlateau plateau;
     private  Button passer;
     private VBox listeDestinations;
+    private VueJoueurCourant vueJCour;
 
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
         plateau = new VuePlateau();
         listeDestinations = new VBox();
         passer = new Button("Passer");
+        vueJCour = new VueJoueurCourant(jeu);
 
         getChildren().add(listeDestinations);
         getChildren().add(passer);
-
-        Label test = new Label("test");
-        VueJoueurCourant vueJCour = new VueJoueurCourant(jeu);
         getChildren().add(vueJCour);
 
 
@@ -60,6 +59,7 @@ public class VueDuJeu extends VBox {
 
     public void creerBindings() {
         getJeu().destinationsInitialesProperty().addListener(listener);
+        vueJCour.creerBindings();
 
         passer.setOnAction(actionEvent -> {
             getJeu().passerAEteChoisi();
