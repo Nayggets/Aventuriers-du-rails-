@@ -36,6 +36,10 @@ public class VueDuJeu extends VBox {
         getChildren().add(listeDestinations);
         getChildren().add(passer);
 
+        Label test = new Label("test");
+        VueJoueurCourant vueJCour = new VueJoueurCourant(jeu);
+        getChildren().add(vueJCour);
+
 
         //getChildren().add(plateau);
     }
