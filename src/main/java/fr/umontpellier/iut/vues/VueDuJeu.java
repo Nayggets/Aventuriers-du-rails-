@@ -31,7 +31,7 @@ public class VueDuJeu extends VBox {
         this.jeu = jeu;
         plateau = new VuePlateau();
         listeDestinations = new VBox();
-         passer = new Button("Passer");
+        passer = new Button("Passer");
 
         getChildren().add(listeDestinations);
         getChildren().add(passer);
@@ -42,7 +42,26 @@ public class VueDuJeu extends VBox {
 
     public IJeu getJeu() {
         return jeu;
-    }/*ratio*/
+    }
+
+    public Label trouveLabelDestination(IDestination id){//pas sûre
+        for (int i = 0; i < listeDestinations.getChildren().size() ; i++) {
+            Label label = new Label(""+listeDestinations.getChildren().get(i));
+            if (label.getText().equals(id.getNom())){
+                return label;
+            }
+        }
+        return null;
+    }
+
+    public void creerBindings() {
+        getJeu().destinationsInitialesProperty().addListener(listener);
+
+        passer.setOnAction(actionEvent -> {
+            getJeu().passerAEteChoisi();
+        });
+
+    }
 
     ListChangeListener<Destination> listener = new ListChangeListener<Destination>() {
         @Override
@@ -63,21 +82,4 @@ public class VueDuJeu extends VBox {
             });
         }
     };
-
-    public Label trouveLabelDestination(IDestination id){
-        for (int i = 0; i < listeDestinations.getChildren().size() ; i++) {
-            creer label
-                    if meme nom .gettext .getnom
-                    return
-        }
-    }
-
-    public void creerBindings() {
-        getJeu().destinationsInitialesProperty().addListener(listener);
-
-        passer.setOnAction(actionEvent -> {
-            getJeu().passerAEteChoisi();
-        });
-
-    }
 }
