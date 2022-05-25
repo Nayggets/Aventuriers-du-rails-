@@ -40,7 +40,7 @@ public class VueDuJeu extends VBox {
         getChildren().add(vueJCour);
 
 
-        //getChildren().add(plateau);
+        getChildren().add(plateau);
     }
 
     public IJeu getJeu() {
@@ -59,7 +59,8 @@ public class VueDuJeu extends VBox {
 
     public void creerBindings() {
         getJeu().destinationsInitialesProperty().addListener(listener);
-        vueJCour.creerBindings();
+        vueJCour.
+                creerBindings();
 
         passer.setOnAction(actionEvent -> {
             getJeu().passerAEteChoisi();

@@ -1,6 +1,7 @@
 package fr.umontpellier.iut.vues;
 
 import fr.umontpellier.iut.ICouleurWagon;
+import fr.umontpellier.iut.IJeu;
 import javafx.scene.layout.Pane;
 
 /**
@@ -19,5 +20,4 @@ public class VueCarteWagon extends Pane {
     public ICouleurWagon getCouleurWagon() {
         return couleurWagon;
     }
-
 }
