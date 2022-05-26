@@ -2,6 +2,8 @@ package fr.umontpellier.iut.vues;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
@@ -15,17 +17,16 @@ import java.io.IOException;
 public class VuePlateau extends Pane {
 
     public VuePlateau() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/plateau.fxml"));
-            loader.setRoot(this);
-            loader.setController(this);
-            loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ImageView imageView = new ImageView("/images/euMap.jpg");
+        imageView.setFitHeight(700);
+        imageView.setFitWidth(1400);
+
+
+        this.getChildren().add(imageView);
     }
 
     @FXML
     public void choixRouteOuVille() {
     }
 }
+
