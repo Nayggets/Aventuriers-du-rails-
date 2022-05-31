@@ -31,6 +31,10 @@ public class VueCarteWagon extends Button {
         else{
             view.setFitHeight(125);
             view.setFitWidth(150);
+            this.setOnAction(actionEvent -> {
+                ((VueDuJeu)getScene().getRoot()).getJeu().uneCarteWagonAEteChoisie(couleurWagon);
+
+            });
         }
 
         this.setGraphic(view);

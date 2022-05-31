@@ -41,8 +41,9 @@ public class VueDuJeu extends VBox {
     private VuePlateau vuePlateau;
 
     private VBox joueur;
-    private HBox piocheDestination;
     private boolean debutPasser;
+    private VuePiocheDestination piocheDesti;
+    private VuePiocheCarteWagon piocheWagon;
 
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
@@ -56,19 +57,18 @@ public class VueDuJeu extends VBox {
         joueur = new VBox();
         passer = new Button("Passer");
         vueJCour = new VueJoueurCourant(jeu);
-        piocheDestination = new HBox( new VuePiocheDestination());
+        piocheDesti = new VuePiocheDestination();
+        piocheWagon = new VuePiocheCarteWagon();
 
-        if(jeu.destinationsInitialesProperty().isEmpty()){
-            setDebutPasser(true);
-        }
+
+
         getChildren().add(vuePlateau);
+        getChildren().add(piocheDesti);
+        getChildren().add(piocheWagon);
         getChildren().add(listeDestinations);
         getChildren().add(passer);
         getChildren().add(cartesVisibles);
         getChildren().add(vueJCour);
-        if(isDebutPasser()){
-            getChildren().add(piocheDestination);
-        }
     }
 
     public boolean isDebutPasser() {
@@ -86,17 +86,18 @@ public class VueDuJeu extends VBox {
     public VueDestination trouveVuDestination(IDestination id){
         for (int i = 0; i < listeDestinations.getChildren().size() ; i++) {
             VueDestination destination =  (VueDestination) listeDestinations.getChildren().get(i);
-            if (id.getNom().equals(id.getNom())){
+            if (destination.getDestination().getNom().equals(id.getNom())){
                 return destination;
             }
         }
         return null;
     }
 
+
     public VueCarteWagon trouveCarteVagon(ICouleurWagon id){
         for (int i = 0; i < cartesVisibles.getChildren().size() ; i++) {
             VueCarteWagon vueWagon =  (VueCarteWagon) cartesVisibles.getChildren().get(i);
-            if (vueWagon.toString().equals(id.toString())){
+            if (vueWagon.getCouleurWagon().equals(id)){
                 return vueWagon;
             }
         }
@@ -109,12 +110,11 @@ public class VueDuJeu extends VBox {
             VueDestination b = (VueDestination) e;
             b.setOnAction(actionEvent -> {
 
-                    System.out.println("wesh");
                     jeu.uneDestinationAEteChoisie(b.getDestination().getNom());
-                    listeDestinations.getChildren().remove(b);
             });
         }
         getJeu().destinationsInitialesProperty().addListener(listener);
+
 
         getJeu().cartesWagonVisiblesProperty().addListener(listenWagon);
         passer.setOnAction(actionEvent -> {
@@ -124,16 +124,13 @@ public class VueDuJeu extends VBox {
 
 
         //Pioche destination
-        VuePiocheDestination b1 = new VuePiocheDestination();
-        b1.setOnAction(actionEvent -> {
-            ObservableList<Node> liste2 = listeDestinations.getChildren();
-            for(Node e : liste2){
-                VueDestination b = (VueDestination) e;
-                b.setOnAction(actionEvent1 -> {
-                    jeu.uneDestinationAEteChoisie(b.getDestination().getNom());
-                    listeDestinations.getChildren().remove(b);
-                });
-            }
+
+        piocheDesti.setOnAction(actionEvent -> {
+            jeu.uneDestinationAEtePiochee();
+        });
+
+        piocheWagon.setOnAction(actionEvent -> {
+            jeu.uneCarteWagonAEtePiochee();
         });
 
     }
@@ -148,7 +145,6 @@ public class VueDuJeu extends VBox {
                             VueDestination vue = new VueDestination(change.getAddedSubList().get(i));
                             vue.setOnAction(actionEvent -> {
 
-                                System.out.println("wesh");
                                 jeu.uneDestinationAEteChoisie(vue.getDestination().getNom());
                                 listeDestinations.getChildren().remove(vue);
                             });
@@ -167,7 +163,6 @@ public class VueDuJeu extends VBox {
                 }
             });
         }
-
     };
 
     private ListChangeListener<ICouleurWagon> listenWagon = new ListChangeListener<ICouleurWagon>() {
@@ -178,18 +173,14 @@ public class VueDuJeu extends VBox {
                     if (change.wasAdded()) {
                         for (int i = 0; i < change.getAddedSize(); i++) {
                             VueCarteWagon vue = new VueCarteWagon(change.getAddedSubList().get(i),false);
-                            vue.setOnAction(actionEvent -> {
 
-                                System.out.println("wesh");
-                                jeu.uneCarteWagonAEteChoisie(vue.getCouleurWagon());
-                                cartesVisibles.getChildren().remove(vue);
-                            });
 
                             cartesVisibles.getChildren().add(vue);
                         }
                     }
                     if(change.wasRemoved()){
                         for (int i = 0; i < change.getRemovedSize(); i++) {
+                            System.out.println("test");
                             cartesVisibles.getChildren().remove(trouveCarteVagon(change.getRemoved().get(i)));
                         }
                     }
