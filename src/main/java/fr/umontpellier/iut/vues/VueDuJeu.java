@@ -16,9 +16,9 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 
 /**
  * Cette classe correspond à la fenêtre principale de l'application.
@@ -59,8 +59,8 @@ public class VueDuJeu extends VBox {
         vueJCour = new VueJoueurCourant(jeu);
         piocheDesti = new VuePiocheDestination();
         piocheWagon = new VuePiocheCarteWagon();
-
-
+        Image view = new Image("/images/bois.jpg");
+        this.setBackground(new Background(new BackgroundImage(view, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
 
         getChildren().add(vuePlateau);
         getChildren().add(piocheDesti);
