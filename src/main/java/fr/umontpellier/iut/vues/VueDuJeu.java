@@ -41,10 +41,11 @@ public class VueDuJeu extends VBox {
     private VuePlateau vuePlateau;
 
     private VBox joueur;
+    private HBox piocheDestination;
+    private boolean debutPasser;
 
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
-
         //jeu.joueurCourantProperty().get().cartesWagonProperty().add(CouleurWagon.JAUNE);
         plateau = new VuePlateau();
         listeDestinations = new HBox();
@@ -53,17 +54,29 @@ public class VueDuJeu extends VBox {
         cartesVisibles.setSpacing(60);
         vuePlateau = new VuePlateau();
         joueur = new VBox();
-
         passer = new Button("Passer");
         vueJCour = new VueJoueurCourant(jeu);
+        piocheDestination = new HBox( new VuePiocheDestination());
 
-
-
+        if(jeu.destinationsInitialesProperty().isEmpty()){
+            setDebutPasser(true);
+        }
         getChildren().add(vuePlateau);
         getChildren().add(listeDestinations);
         getChildren().add(passer);
         getChildren().add(cartesVisibles);
         getChildren().add(vueJCour);
+        if(isDebutPasser()){
+            getChildren().add(piocheDestination);
+        }
+    }
+
+    public boolean isDebutPasser() {
+        return debutPasser;
+    }
+
+    public void setDebutPasser(boolean debutPasser) {
+        this.debutPasser = debutPasser;
     }
 
     public IJeu getJeu() {
@@ -108,6 +121,20 @@ public class VueDuJeu extends VBox {
             getJeu().passerAEteChoisi();
         });
         vueJCour.creerBindings();
+
+
+        //Pioche destination
+        VuePiocheDestination b1 = new VuePiocheDestination();
+        b1.setOnAction(actionEvent -> {
+            ObservableList<Node> liste2 = listeDestinations.getChildren();
+            for(Node e : liste2){
+                VueDestination b = (VueDestination) e;
+                b.setOnAction(actionEvent1 -> {
+                    jeu.uneDestinationAEteChoisie(b.getDestination().getNom());
+                    listeDestinations.getChildren().remove(b);
+                });
+            }
+        });
 
     }
 
