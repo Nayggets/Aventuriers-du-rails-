@@ -1,9 +1,13 @@
 package fr.umontpellier.iut.vues;
 
+import fr.umontpellier.iut.IJeu;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -75,6 +79,10 @@ public class VueChoixJoueurs extends Stage {
      */
     protected String getJoueurParNumero(int playerNumber) {
         throw new RuntimeException("Methode à implémenter");
+    }
+
+    public void creerBindings(){
+
     }
 
 }

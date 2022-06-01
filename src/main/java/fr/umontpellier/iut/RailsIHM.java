@@ -10,6 +10,7 @@ import javafx.concurrent.Worker;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class RailsIHM extends Application {
     private Stage primaryStage;
     private ServiceDuJeu serviceDuJeu;
 
-    private boolean avecVueChoixJoueurs = false;
+    private boolean avecVueChoixJoueurs = true;
 
     @Override
     public void start(Stage primaryStage) {
@@ -39,8 +40,9 @@ public class RailsIHM extends Application {
 
     public void demarrerPartie() {
         List<String> nomsJoueurs;
-        if (avecVueChoixJoueurs)
+        if (avecVueChoixJoueurs){
             nomsJoueurs = vueChoixJoueurs.getNomsJoueurs();
+        }
         else {
             nomsJoueurs = new ArrayList<>();
             nomsJoueurs.add("Guybrush");
@@ -73,8 +75,9 @@ public class RailsIHM extends Application {
     }
 
     private final ListChangeListener<String> quandLesNomsJoueursSontDefinis = change -> {
-        if (!vueChoixJoueurs.getNomsJoueurs().isEmpty())
+        if (!vueChoixJoueurs.getNomsJoueurs().isEmpty()){
             demarrerPartie();
+        }
     };
 
     public void onStopGame() {

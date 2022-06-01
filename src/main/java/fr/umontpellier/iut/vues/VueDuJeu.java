@@ -62,6 +62,7 @@ public class VueDuJeu extends VBox {
         Image view = new Image("/images/bois.jpg");
         this.setBackground(new Background(new BackgroundImage(view, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
 
+
         getChildren().add(vuePlateau);
         getChildren().add(piocheDesti);
         getChildren().add(piocheWagon);
