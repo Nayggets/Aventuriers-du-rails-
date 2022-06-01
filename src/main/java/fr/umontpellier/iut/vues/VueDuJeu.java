@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -37,9 +38,9 @@ public class VueDuJeu extends VBox {
     private HBox listeDestinations;
     private HBox cartesVisibles;
     private VueJoueurCourant vueJCour;
-
+    private HBox PlateauAndPlayer;
     private VuePlateau vuePlateau;
-
+    private VBox Player;
     private VBox joueur;
     private boolean debutPasser;
     private VuePiocheDestination piocheDesti;
@@ -59,17 +60,27 @@ public class VueDuJeu extends VBox {
         vueJCour = new VueJoueurCourant(jeu);
         piocheDesti = new VuePiocheDestination();
         piocheWagon = new VuePiocheCarteWagon();
-        Image view = new Image("/images/bois.jpg");
+        Image view = new Image("/images/test5.jpg");
         this.setBackground(new Background(new BackgroundImage(view, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
+        PlateauAndPlayer = new HBox();
+        VueAutresJoueurs vue = new VueAutresJoueurs(jeu.getJoueurs().get(0));
+        Player = new VBox();
+        Player.getChildren().add(vue);
+        Player.setAlignment(Pos.TOP_RIGHT);
+        PlateauAndPlayer.getChildren().addAll(vuePlateau,Player);
+        PlateauAndPlayer.setSpacing(10);
+        getChildren().add(PlateauAndPlayer);
 
 
-        getChildren().add(vuePlateau);
         getChildren().add(piocheDesti);
         getChildren().add(piocheWagon);
         getChildren().add(listeDestinations);
         getChildren().add(passer);
         getChildren().add(cartesVisibles);
+
+
         getChildren().add(vueJCour);
+
     }
 
     public boolean isDebutPasser() {
