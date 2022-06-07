@@ -50,7 +50,7 @@ public class VuePlateau extends Pane {
     private void bindRedimensionPlateau() {
         bindRoutes();
         bindVilles();
-//        Les dimensions de l'image varient avec celle de la scène
+        //Les dimensions de l'image varient avec celle de la scène
         image.fitWidthProperty().bind(getScene().widthProperty());
         image.fitHeightProperty().bind(getScene().heightProperty());
     }
