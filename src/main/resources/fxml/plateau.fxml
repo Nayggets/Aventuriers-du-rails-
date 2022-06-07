@@ -575,10 +575,5 @@
           </Group>
       </children>
    </Group>
-   <Button layoutX="33.0" layoutY="808.0" mnemonicParsing="false" text="Settings" />
-   <Label layoutX="28.0" layoutY="653.0" text="Label" />
-   <Button layoutX="-13.0" layoutY="717.0" mnemonicParsing="false" rotate="90.0" text="Destination" />
-   <Button layoutX="45.0" layoutY="717.0" mnemonicParsing="false" rotate="90.0" text="Pioche" />
-   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="97.0" layoutX="903.0" layoutY="678.0" stroke="BLACK" strokeType="INSIDE" width="83.0" />
    <VBox layoutX="1005.0" layoutY="22.0" prefHeight="619.0" prefWidth="303.0" spacing="10.0" />
 </fx:root>

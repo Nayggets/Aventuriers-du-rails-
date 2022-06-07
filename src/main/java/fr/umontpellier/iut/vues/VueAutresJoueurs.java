@@ -21,6 +21,8 @@ import javafx.scene.shape.Rectangle;
  */
 public class VueAutresJoueurs extends Pane {
 
+    private static ImageView star = new ImageView("/images/Etoile.png");
+
     IJoueur joueur;
     Label nombreGare;
     Label nombreWagon;
@@ -38,10 +40,10 @@ public class VueAutresJoueurs extends Pane {
         nombreWagon = new Label();
         nombreGare = new Label();
         score = new Label();
-        System.out.println(joueur.getCouleur().toString().toLowerCase());
         box = new HBox();
         this.joueur = joueur;
-
+        star.setFitWidth(100);
+        star.setFitHeight(100);
         Rectangle rect = new Rectangle(1000,1000);
         rect.setArcHeight(300.0);
         rect.setArcWidth(150.0);
@@ -74,6 +76,15 @@ public class VueAutresJoueurs extends Pane {
 
 
         this.getChildren().add(box);
+    }
+
+
+    public void putStars(){
+        box.getChildren().add(star);
+    }
+
+    public void removeStars(){
+        box.getChildren().remove(star);
     }
 
     private String traduceColor(String color){

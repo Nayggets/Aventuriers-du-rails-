@@ -3,11 +3,14 @@ package fr.umontpellier.iut.vues;
 import fr.umontpellier.iut.ICouleurWagon;
 import fr.umontpellier.iut.IDestination;
 import fr.umontpellier.iut.IJeu;
+import fr.umontpellier.iut.IJoueur;
 import fr.umontpellier.iut.rails.CouleurWagon;
 import fr.umontpellier.iut.rails.Destination;
 import fr.umontpellier.iut.rails.Jeu;
+import fr.umontpellier.iut.rails.Joueur;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
@@ -63,9 +66,11 @@ public class VueDuJeu extends VBox {
         Image view = new Image("/images/test5.jpg");
         this.setBackground(new Background(new BackgroundImage(view, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
         PlateauAndPlayer = new HBox();
-        VueAutresJoueurs vue = new VueAutresJoueurs(jeu.getJoueurs().get(0));
+
         Player = new VBox();
-        Player.getChildren().add(vue);
+        for(Joueur j : getJeu().getJoueurs()){
+            Player.getChildren().add(new VueAutresJoueurs(j));
+        }
         Player.setAlignment(Pos.TOP_RIGHT);
         PlateauAndPlayer.getChildren().addAll(vuePlateau,Player);
         PlateauAndPlayer.setSpacing(10);
@@ -80,6 +85,7 @@ public class VueDuJeu extends VBox {
 
 
         getChildren().add(vueJCour);
+
 
     }
 
@@ -133,7 +139,7 @@ public class VueDuJeu extends VBox {
             getJeu().passerAEteChoisi();
         });
         vueJCour.creerBindings();
-
+        getJeu().joueurCourantProperty().addListener(listenerJ);
 
         //Pioche destination
 
@@ -176,6 +182,35 @@ public class VueDuJeu extends VBox {
             });
         }
     };
+
+    private ChangeListener<IJoueur> listenerJ = new ChangeListener<IJoueur>() {
+        @Override
+        public void changed(ObservableValue<? extends IJoueur> observableValue, IJoueur oldValue, IJoueur newValue) {
+            for(Node e : Player.getChildren()){
+                VueAutresJoueurs vue = (VueAutresJoueurs) e;
+                if(oldValue != null){
+                    if(vue.joueur.getNom().equals(oldValue.getNom())){
+                        vue.removeStars();
+                    }
+                }
+
+                if(vue.joueur.getNom().equals(newValue.getNom())){
+                    vue.putStars();
+                }
+            }
+        }
+
+    };
+
+    private VueAutresJoueurs trouveVuAutreJoueur(IJoueur iJoueur) {
+        for (int i = 0; i < Player.getChildren().size() ; i++) {
+            VueAutresJoueurs vueAutresJoueurs =  (VueAutresJoueurs) cartesVisibles.getChildren().get(i);
+            if (vueAutresJoueurs.joueur.getNom().equals(iJoueur.getNom())){
+                return vueAutresJoueurs;
+            }
+        }
+        return null;
+    }
 
     private ListChangeListener<ICouleurWagon> listenWagon = new ListChangeListener<ICouleurWagon>() {
         @Override
