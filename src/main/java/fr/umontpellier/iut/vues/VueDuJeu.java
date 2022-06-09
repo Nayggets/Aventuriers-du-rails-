@@ -33,7 +33,7 @@ import javafx.scene.layout.*;
  * (le joueur courant, les 5 cartes Wagons visibles, les destinations lors de l'étape d'initialisation de la partie, ...)
  * ainsi que les listeners à exécuter lorsque ces éléments changent
  */
-public class VueDuJeu extends VBox {
+public class VueDuJeu extends BorderPane {
 
     private IJeu jeu;
     private VuePlateau plateau;
@@ -79,13 +79,12 @@ public class VueDuJeu extends VBox {
         getChildren().add(PlateauAndPlayer);
 
 
-        getChildren().add(piocheDesti);
-        getChildren().add(piocheWagon);
+        HBox h = new HBox();
+        h.getChildren().addAll(passer, piocheDesti, piocheWagon,cartesVisibles);
+        this.setBottom(h);
+
+
         getChildren().add(listeDestinations);
-        getChildren().add(passer);
-        getChildren().add(cartesVisibles);
-
-
         getChildren().add(vueJCour);
 
 
