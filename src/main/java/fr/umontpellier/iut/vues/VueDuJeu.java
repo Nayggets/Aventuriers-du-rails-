@@ -49,7 +49,10 @@ public class VueDuJeu extends VBox {
     private VuePiocheDestination piocheDesti;
     private VuePiocheCarteWagon piocheWagon;
 
+
     public VueDuJeu(IJeu jeu) {
+
+        Image view = new Image("/images/test5.jpg");
         this.jeu = jeu;
         //jeu.joueurCourantProperty().get().cartesWagonProperty().add(CouleurWagon.JAUNE);
         plateau = new VuePlateau();
@@ -63,7 +66,6 @@ public class VueDuJeu extends VBox {
         vueJCour = new VueJoueurCourant(jeu);
         piocheDesti = new VuePiocheDestination();
         piocheWagon = new VuePiocheCarteWagon();
-        Image view = new Image("/images/test5.jpg");
         this.setBackground(new Background(new BackgroundImage(view, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
         PlateauAndPlayer = new HBox();
 

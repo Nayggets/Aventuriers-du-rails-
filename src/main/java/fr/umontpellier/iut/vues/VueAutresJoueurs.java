@@ -24,6 +24,7 @@ public class VueAutresJoueurs extends Pane {
     private static ImageView star = new ImageView("/images/Etoile.png");
 
     IJoueur joueur;
+    Label nomDuJoueur;
     Label nombreGare;
     Label nombreWagon;
     Label score;
@@ -37,6 +38,7 @@ public class VueAutresJoueurs extends Pane {
     ImageView avatar;
 
     public VueAutresJoueurs(IJoueur joueur){
+        nomDuJoueur = new Label(joueur.getNom());
         nombreWagon = new Label();
         nombreGare = new Label();
         score = new Label();
@@ -72,7 +74,7 @@ public class VueAutresJoueurs extends Pane {
         nombreGare.textProperty().bind(nbGare.asString());
         nombreWagon.textProperty().bind(nbWagon.asString());
         score.textProperty().bind(nbScore.asString());
-        box.getChildren().addAll(avatar,imScore,score,gare,nombreGare,wagon,nombreWagon);
+        box.getChildren().addAll(avatar,imScore,score,gare,nombreGare,wagon,nombreWagon,nomDuJoueur);
 
 
         this.getChildren().add(box);

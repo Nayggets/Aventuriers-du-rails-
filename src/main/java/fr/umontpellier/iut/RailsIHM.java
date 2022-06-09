@@ -1,6 +1,7 @@
 package fr.umontpellier.iut;
 
 import fr.umontpellier.iut.rails.ServiceDuJeu;
+import fr.umontpellier.iut.vues.DebutDuJeu;
 import fr.umontpellier.iut.vues.VueChoixJoueurs;
 import fr.umontpellier.iut.vues.VueDuJeu;
 import javafx.application.Application;
@@ -24,16 +25,19 @@ public class RailsIHM extends Application {
     private Stage primaryStage;
     private ServiceDuJeu serviceDuJeu;
 
-    private boolean avecVueChoixJoueurs = false;
+    private boolean avecVueChoixJoueurs = true;
 
     @Override
     public void start(Stage primaryStage) {
+        DebutDuJeu debut = new DebutDuJeu();
+
+        debut.showAndWait();
         this.primaryStage = primaryStage;
-        if (avecVueChoixJoueurs) {
+        if (avecVueChoixJoueurs && !debut.isExited()) {
             vueChoixJoueurs = new VueChoixJoueurs();
             vueChoixJoueurs.setNomsDesJoueursDefinisListener(quandLesNomsJoueursSontDefinis);
             vueChoixJoueurs.show();
-        } else {
+        } else if(!debut.isExited()){
             demarrerPartie();
         }
     }
@@ -64,6 +68,8 @@ public class RailsIHM extends Application {
             this.onStopGame();
             event.consume();
         });
+        primaryStage.setMaximized(true);
+        primaryStage.setFullScreen(true);
         primaryStage.show();
     }
 
@@ -76,7 +82,12 @@ public class RailsIHM extends Application {
 
     private final ListChangeListener<String> quandLesNomsJoueursSontDefinis = change -> {
         if (!vueChoixJoueurs.getNomsJoueurs().isEmpty()){
-            demarrerPartie();
+            if(vueChoixJoueurs.getLaunch()){
+                vueChoixJoueurs.close();
+                vueChoixJoueurs.getNomsJoueurs().remove("a");
+                demarrerPartie();
+            }
+
         }
     };
 
