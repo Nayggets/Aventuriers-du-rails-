@@ -24,6 +24,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 /**
  * Cette classe correspond à la fenêtre principale de l'application.
@@ -37,8 +38,7 @@ import javafx.scene.layout.*;
 public class VueDuJeu extends BorderPane {
 
     private IJeu jeu;
-    private VuePlateau plateau;
-    private  Button passer;
+    private Button passer;
     private HBox listeDestinations;
     private HBox cartesVisibles;
     private VueJoueurCourant vueJCour;
@@ -50,6 +50,7 @@ public class VueDuJeu extends BorderPane {
     private boolean debutPasser;
     private VuePiocheDestination piocheDesti;
     private VuePiocheCarteWagon piocheWagon;
+    private Label instructionMSG;
 
 
     public VueDuJeu(IJeu jeu) {
@@ -57,7 +58,6 @@ public class VueDuJeu extends BorderPane {
         Image view = new Image("/images/test5.jpg");
         this.jeu = jeu;
         //jeu.joueurCourantProperty().get().cartesWagonProperty().add(CouleurWagon.JAUNE);
-        plateau = new VuePlateau();
         listeDestinations = new HBox();
         listeDestinations.setSpacing(50);
         cartesVisibles = new HBox();
@@ -72,6 +72,8 @@ public class VueDuJeu extends BorderPane {
         this.setBackground(new Background(new BackgroundImage(view, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
         PlateauAndPlayer = new HBox();
 
+        instructionMSG = new Label();
+        instructionMSG.setStyle("-fx-text-fill: white; -fx-font-weight: bold");
 
         //-----Paramètres visuels-----
 
@@ -80,6 +82,7 @@ public class VueDuJeu extends BorderPane {
         for(Joueur j : getJeu().getJoueurs()){
             Player.getChildren().add(new VueAutresJoueurs(j));
         }
+        Player.getChildren().add(instructionMSG);
         Player.setAlignment(Pos.TOP_RIGHT);
         Player.setSpacing(30);
         PlateauAndPlayer.getChildren().addAll(vuePlateau,Player);
@@ -144,6 +147,10 @@ public class VueDuJeu extends BorderPane {
         return null;
     }
 
+    public void creerBindingsPostShowStage() {
+        vuePlateau.creerBindings();
+    }
+
     public void creerBindings() {
         ObservableList<Node> liste = listeDestinations.getChildren();
         for(Node e : liste){
@@ -154,6 +161,9 @@ public class VueDuJeu extends BorderPane {
             });
         }
         getJeu().destinationsInitialesProperty().addListener(listener);
+
+
+        getJeu().instructionProperty().addListener(instructionListener);
 
 
         getJeu().cartesWagonVisiblesProperty().addListener(listenWagon);
@@ -175,6 +185,10 @@ public class VueDuJeu extends BorderPane {
         });
 
     }
+
+    private final ChangeListener<String> instructionListener = (observableValue, oldString, newString) -> {
+        instructionMSG.setText(newString);
+    };
 
     private ListChangeListener<IDestination> listener = new ListChangeListener<IDestination>() {
         @Override
@@ -206,19 +220,20 @@ public class VueDuJeu extends BorderPane {
         }
     };
 
-    private ChangeListener<IJoueur> listenerJ = new ChangeListener<IJoueur>() {
+    private ChangeListener<IJoueur> listenerJ = new ChangeListener<>() {
         @Override
         public void changed(ObservableValue<? extends IJoueur> observableValue, IJoueur oldValue, IJoueur newValue) {
-            for(Node e : Player.getChildren()){
+            for (Node e : Player.getChildren()) {
+                if (!(e instanceof VueAutresJoueurs)) {
+                    continue;
+                }
                 VueAutresJoueurs joueur = (VueAutresJoueurs) e;
-                if(oldValue != null){
-                    if(joueur.getJoueur().getNom().equals(oldValue.getNom())){
+                if (oldValue != null) {
+                    if (joueur.getJoueur().getNom().equals(oldValue.getNom())) {
                         joueur.removeStars();
                     }
                 }
-
-
-                if(joueur.getJoueur().getNom().equals(newValue.getNom())){
+                if (joueur.getJoueur().getNom().equals(newValue.getNom())) {
                     joueur.putStars();
                 }
             }

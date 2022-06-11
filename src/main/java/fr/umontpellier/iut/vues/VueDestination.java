@@ -30,7 +30,7 @@ public class VueDestination extends Button {
             i++;
         }
         str = str.replaceAll(" ","");
-        System.out.println(str);
+        //System.out.println(str);
         view = new ImageView(str);
         view.setFitWidth(150);
         view.setFitHeight(120);

@@ -16,7 +16,7 @@
    <HBox layoutX="91.0" layoutY="653.0" prefHeight="28.0" prefWidth="895.0" spacing="14.0" />
    <Group layoutX="-173.0" layoutY="-107.0" scaleX="0.75" scaleY="0.75">
       <children>
-          <ImageView fitHeight="855.66" fitWidth="1326.78" pickOnBounds="true" preserveRatio="true">
+          <ImageView fitHeight="855.66" fitWidth="1326.78" pickOnBounds="true" preserveRatio="true" fx:id="image">
               <Image url="@../images/euMap.jpg" />
           </ImageView>
           <Group fx:id="routes">

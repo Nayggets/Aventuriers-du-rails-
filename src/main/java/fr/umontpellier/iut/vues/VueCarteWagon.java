@@ -18,7 +18,6 @@ public class VueCarteWagon extends Button {
         this.couleurWagon = couleurWagon;
 
         String str = couleurWagon.toString().toLowerCase();
-        System.out.println(str);
         view = new ImageView("/images/cartesWagons/carte-wagon-" + couleurWagon.toString().toUpperCase() + ".png");
         if(carteJoueur){
             view.setFitHeight(100);

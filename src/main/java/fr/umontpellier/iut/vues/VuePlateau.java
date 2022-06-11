@@ -4,20 +4,19 @@ import fr.umontpellier.iut.IJeu;
 import fr.umontpellier.iut.IRoute;
 import fr.umontpellier.iut.IVille;
 import fr.umontpellier.iut.rails.Joueur;
+import fr.umontpellier.iut.rails.Route;
+import fr.umontpellier.iut.rails.Ville;
 import javafx.beans.binding.DoubleBinding;
-import javafx.beans.binding.ObjectBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
@@ -48,7 +47,8 @@ public class VuePlateau extends Pane {
         IJeu jeu = ((VueDuJeu) getScene().getRoot()).getJeu();
         Node n = (Node)e.getSource();
         jeu.uneVilleOuUneRouteAEteChoisie(n.getId());
-        System.out.println("test");
+
+        lastRouteOuVilleClicked = n;
     }
 
     @FXML
@@ -58,31 +58,36 @@ public class VuePlateau extends Pane {
     @FXML
     private Group routes;
 
+    private Node lastRouteOuVilleClicked;
+
+    private IJeu jeu;
+
     public void creerBindings() {
+        jeu = ((VueDuJeu) getScene().getRoot()).getJeu();
+
         bindRedimensionPlateau();
-        bindCouleurRoutePrise();
-        for(IVille v : (List<IVille>) ((VueDuJeu) getScene().getRoot()).getJeu().getVilles()){
-            v.proprietaireProperty().addListener(ecouteVille);
+
+        for(Object o : jeu.getVilles()){
+            ((IVille) o).proprietaireProperty().addListener(priseDeVille);
+        }
+
+        for (Object o : jeu.getRoutes()) {
+            ((IRoute) o).proprietaireProperty().addListener(priseDeRoute);
         }
     }
 
-    private void bindCouleurRoutePrise(){
-        for (Node nRoute : routes.getChildren()){
-            Group gRoute = (Group) nRoute;
-            List<IRoute> listeRoutes = (List<IRoute>) ((VueDuJeu)getScene().getRoot()).getJeu().getRoutes();
-            IRoute route = listeRoutes.stream().filter(r -> r.getNom().equals(nRoute.getId())).findAny().orElse(null);
-            for (Node nRect : gRoute.getChildren()){
-                Rectangle section = (Rectangle) nRect;
-                section.fillProperty().bind(new ObjectBinding<Color>() {
-                    @Override
-                    protected Color computeValue() {
-                        return Color.TRANSPARENT;
-                    }
-                });
-                section.fillProperty().addListener((ObservableValue, point, t1) -> {
-                    DropShadow ds = new DropShadow(10, (Color) t1);
-                });
-            }
+    private final ChangeListener<Joueur> priseDeVille = (observableValue, oldJoueur, newJoueur) -> {
+        // on colore la ville
+        ((Circle) lastRouteOuVilleClicked).setFill(newJoueur.getCouleur().getJavaFxColor());
+    };
+
+    public final ChangeListener<Joueur> priseDeRoute = (observableValue, oldJoueur, newJoueur) -> {
+        for (Node node : ((Group) lastRouteOuVilleClicked).getChildren()) {
+            Rectangle r = ((Rectangle) node);
+
+            r.setFill(newJoueur.getCouleur().getJavaFxColor());
+            r.setStroke(Color.BLACK);
+            r.setStrokeWidth(5d);
         }
     };
 
@@ -93,11 +98,6 @@ public class VuePlateau extends Pane {
                 Circle cVille = (Circle) nVille;
                 List<IVille> listeVilles = (List<IVille>) ((VueDuJeu)getScene().getRoot()).getJeu().getVilles();
                 IVille ville = listeVilles.stream().filter(v -> v.getNom().equals(nVille.getId())).findAny().orElse(null);
-                //if(ville.proprietaireProperty().getValue() != null){
-                //    if(ville.proprietaireProperty().getValue().equals(t1)){
-                //        cVille.setStyle("gare-"+ VueJoueurCourant.couleursJ.get(t1.getCartesWagon()));
-                //    }
-                //}
             }
         }
     };
@@ -106,8 +106,8 @@ public class VuePlateau extends Pane {
         bindRoutes();
         bindVilles();
         //Les dimensions de l'image varient avec celle de la scène
-        image.fitWidthProperty().bind(getScene().widthProperty());
-        image.fitHeightProperty().bind(getScene().heightProperty());
+//        image.fitWidthProperty().bind(getScene().widthProperty());
+//        image.fitHeightProperty().bind(getScene().heightProperty());
     }
 
     private void bindRectangle(Rectangle rect, double layoutX, double layoutY) {

@@ -19,8 +19,14 @@ public class DebutDuJeu extends Stage {
     private ImageView aventurier;
     private Label miniRule;
 
-    public DebutDuJeu(){
 
+
+    /////////
+
+    private Button next;
+    private Button back;
+
+    public DebutDuJeu(){
         miniRule = new Label("2-5 joueur \n30-60\n8 ans et plus");
         aventurier = new ImageView("/images/titre.png");
         Image view = new Image("/images/imgAcceuil.png");

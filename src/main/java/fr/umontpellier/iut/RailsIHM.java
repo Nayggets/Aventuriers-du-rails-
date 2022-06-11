@@ -71,6 +71,8 @@ public class RailsIHM extends Application {
         primaryStage.setMaximized(true);
         primaryStage.setFullScreen(true);
         primaryStage.show();
+
+        vueDuJeu.creerBindingsPostShowStage();
     }
 
     private void demarrerServiceJeu() {

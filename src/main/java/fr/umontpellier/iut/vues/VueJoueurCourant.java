@@ -4,6 +4,7 @@ import fr.umontpellier.iut.ICouleurWagon;
 import fr.umontpellier.iut.IJeu;
 import fr.umontpellier.iut.IJoueur;
 import fr.umontpellier.iut.rails.CouleurWagon;
+import fr.umontpellier.iut.rails.Jeu;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -72,10 +73,13 @@ public class VueJoueurCourant extends VBox {
                     vue.rotateProperty().add(90);
                     vue.setOnMouseEntered(actionEvent -> {
                         vue.hoverMode(150,175,-75);
-
                     });
                     vue.setOnMouseExited(actionEvent ->{
                         vue.hoverMode(100,125,0);
+                    });
+                    vue.setOnMouseClicked(mouseEvent -> {
+                        jeu.uneCarteWagonAEteChoisie(((VueCarteWagon) mouseEvent.getSource()).getCouleurWagon());
+                        cartesJoueurCourant.getChildren().remove((VueCarteWagon) mouseEvent.getSource());
                     });
                     cartesJoueurCourant.getChildren().add(vue);
                 }

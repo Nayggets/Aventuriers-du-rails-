@@ -75,7 +75,7 @@ public class VueJoueurCourantDesti extends VBox {
         }
     };
 
-    public VueDestination trouveCarteVagon(IDestination id){
+    public VueDestination trouveCarteDesti(IDestination id){
         for (int i = 0; i < cartesDestiJoueurCourant.getChildren().size() ; i++) {
             VueDestination vueDesti =  (VueDestination) cartesDestiJoueurCourant.getChildren().get(i);
             if (vueDesti.toString().equals(id.toString())){
@@ -92,7 +92,7 @@ public class VueJoueurCourantDesti extends VBox {
         public void onChanged(Change<? extends Destination> change) {
             Platform.runLater(() -> {
                 cartesDestiJoueurCourant.getChildren().clear();
-                for (int i = 0; i < jeu.joueurCourantProperty().get().cartesWagonProperty().size(); i++) {
+                for (int i = 0; i < jeu.joueurCourantProperty().get().getDestinations().size(); i++) {
                     cartesDestiJoueurCourant.getChildren().add(new Button(change.getAddedSubList().get(i).toString()));
                 }
             });
