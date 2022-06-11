@@ -16,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -80,10 +81,12 @@ public class VueDuJeu extends BorderPane {
             Player.getChildren().add(new VueAutresJoueurs(j));
         }
         Player.setAlignment(Pos.TOP_RIGHT);
-        Player.setSpacing(20);
+        Player.setSpacing(30);
         PlateauAndPlayer.getChildren().addAll(vuePlateau,Player);
         PlateauAndPlayer.setSpacing(10);
         getChildren().add(PlateauAndPlayer);
+
+
 
         //cartes
         HBox h = new HBox();

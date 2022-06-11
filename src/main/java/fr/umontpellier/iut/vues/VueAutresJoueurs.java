@@ -48,8 +48,8 @@ public class VueAutresJoueurs extends Pane {
         score = new Label();
         box = new HBox();
         this.joueur = joueur;
-        star.setFitWidth(50);
-        star.setFitHeight(50);
+        star.setFitWidth(75);
+        star.setFitHeight(60);
 
         //---rectangle----
         Rectangle rect = new Rectangle(1000,1000);
@@ -80,10 +80,9 @@ public class VueAutresJoueurs extends Pane {
         HBox h1b = new HBox(nomDuJoueur);
         h1b.setAlignment(Pos.CENTER);
         HBox v1 = new HBox(h1a,h1b);
-        //v1.setAlignment(Pos.CENTER_LEFT);
+        v1.setAlignment(Pos.CENTER_LEFT);
         v1.setSpacing(20);
         HBox h = new HBox(imScore,score,gare,nombreGare,wagon,nombreWagon);
-        h.setAlignment(Pos.CENTER_RIGHT);
         VBox v = new VBox(v1,h);
         bp.setCenter(v);
 

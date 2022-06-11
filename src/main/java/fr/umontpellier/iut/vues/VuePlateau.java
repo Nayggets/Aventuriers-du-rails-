@@ -59,7 +59,6 @@ public class VuePlateau extends Pane {
     private Group routes;
 
     public void creerBindings() {
-        System.out.println("test");
         bindRedimensionPlateau();
         bindCouleurRoutePrise();
         for(IVille v : (List<IVille>) ((VueDuJeu) getScene().getRoot()).getJeu().getVilles()){
