@@ -210,15 +210,16 @@ public class VueDuJeu extends BorderPane {
         @Override
         public void changed(ObservableValue<? extends IJoueur> observableValue, IJoueur oldValue, IJoueur newValue) {
             for(Node e : Player.getChildren()){
-                VueAutresJoueurs vue = (VueAutresJoueurs) e;
+                VueAutresJoueurs joueur = (VueAutresJoueurs) e;
                 if(oldValue != null){
-                    if(vue.joueur.getNom().equals(oldValue.getNom())){
-                        vue.removeStars();
+                    if(joueur.getJoueur().getNom().equals(oldValue.getNom())){
+                        joueur.removeStars();
                     }
                 }
 
-                if(vue.joueur.getNom().equals(newValue.getNom())){
-                    vue.putStars();
+
+                if(joueur.getJoueur().getNom().equals(newValue.getNom())){
+                    joueur.putStars();
                 }
             }
         }
@@ -227,8 +228,8 @@ public class VueDuJeu extends BorderPane {
 
     private VueAutresJoueurs trouveVuAutreJoueur(IJoueur iJoueur) {
         for (int i = 0; i < Player.getChildren().size() ; i++) {
-            VueAutresJoueurs vueAutresJoueurs =  (VueAutresJoueurs) cartesVisibles.getChildren().get(i);
-            if (vueAutresJoueurs.joueur.getNom().equals(iJoueur.getNom())){
+            VueAutresJoueurs vueAutresJoueurs =  (VueAutresJoueurs) Player.getChildren().get(i);
+            if (vueAutresJoueurs.getJoueur().getNom().equals(iJoueur.getNom())){
                 return vueAutresJoueurs;
             }
         }
