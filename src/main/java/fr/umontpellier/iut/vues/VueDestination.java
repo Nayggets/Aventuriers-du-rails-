@@ -15,6 +15,8 @@ public class VueDestination extends Button {
 
     private IDestination destination;
 
+    private ImageView view;
+
     public VueDestination(IDestination destination) {
         this.destination = destination;
         String str = "/images/missions/eu-" + destination.toString().toLowerCase() + ".png";
@@ -29,7 +31,7 @@ public class VueDestination extends Button {
         }
         str = str.replaceAll(" ","");
         System.out.println(str);
-        ImageView view = new ImageView(str);
+        view = new ImageView(str);
         view.setFitWidth(150);
         view.setFitHeight(120);
         this.setGraphic(view);
@@ -37,7 +39,12 @@ public class VueDestination extends Button {
     }
 
 
+    public void hoverMode(double height, double width,double y){
+        view.setFitWidth(width);
+        view.setFitHeight(height);
 
+        this.setTranslateY(y);
+    }
 
 
     public IDestination getDestination() {

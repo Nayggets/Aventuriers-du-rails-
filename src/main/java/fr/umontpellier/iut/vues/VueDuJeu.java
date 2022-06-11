@@ -41,6 +41,7 @@ public class VueDuJeu extends BorderPane {
     private HBox listeDestinations;
     private HBox cartesVisibles;
     private VueJoueurCourant vueJCour;
+    private VueJoueurCourantDesti vueJCourDesti;
     private HBox PlateauAndPlayer;
     private VuePlateau vuePlateau;
     private VBox Player;
@@ -64,30 +65,47 @@ public class VueDuJeu extends BorderPane {
         joueur = new VBox();
         passer = new Button("Passer");
         vueJCour = new VueJoueurCourant(jeu);
+        vueJCourDesti = new VueJoueurCourantDesti(jeu);
         piocheDesti = new VuePiocheDestination();
         piocheWagon = new VuePiocheCarteWagon();
         this.setBackground(new Background(new BackgroundImage(view, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
         PlateauAndPlayer = new HBox();
 
+
+        //-----Paramètres visuels-----
+
+        //plateau + joueur
         Player = new VBox();
         for(Joueur j : getJeu().getJoueurs()){
             Player.getChildren().add(new VueAutresJoueurs(j));
         }
         Player.setAlignment(Pos.TOP_RIGHT);
+        Player.setSpacing(20);
         PlateauAndPlayer.getChildren().addAll(vuePlateau,Player);
         PlateauAndPlayer.setSpacing(10);
         getChildren().add(PlateauAndPlayer);
 
-
+        //cartes
         HBox h = new HBox();
-        h.getChildren().addAll(passer, piocheDesti, piocheWagon,cartesVisibles);
-        this.setBottom(h);
+        HBox h1 = new HBox();
+        HBox h2 = new HBox();
+        listeDestinations.setSpacing(5);
+        Label nomJoueur = vueJCour.getNomJoueur();
+        nomJoueur.setStyle("-fx-text-fill: white; -fx-font-weight: bold");
+        h.getChildren().addAll(nomJoueur, listeDestinations,passer);
+        h.setSpacing(10);
+        piocheWagon.setRotate(90);
+        piocheDesti.setRotate(90);
+        cartesVisibles.setSpacing(5);
+        h1.getChildren().addAll(piocheDesti, piocheWagon,cartesVisibles);
+        h1.setSpacing(-15);
+        h2.getChildren().addAll(vueJCour,vueJCourDesti);
+        h2.setAlignment(Pos.CENTER);
 
-
-        getChildren().add(listeDestinations);
-        getChildren().add(vueJCour);
-
-
+        VBox v = new VBox();
+        v.getChildren().addAll(h,h1,h2);
+        v.setSpacing(30);
+        this.setBottom(v);
     }
 
     public boolean isDebutPasser() {
@@ -140,6 +158,7 @@ public class VueDuJeu extends BorderPane {
             getJeu().passerAEteChoisi();
         });
         vueJCour.creerBindings();
+        vueJCourDesti.creerBindings();
         getJeu().joueurCourantProperty().addListener(listenerJ);
 
         //Pioche destination
@@ -228,7 +247,6 @@ public class VueDuJeu extends BorderPane {
                     }
                     if(change.wasRemoved()){
                         for (int i = 0; i < change.getRemovedSize(); i++) {
-                            System.out.println("test");
                             cartesVisibles.getChildren().remove(trouveCarteVagon(change.getRemoved().get(i)));
                         }
                     }

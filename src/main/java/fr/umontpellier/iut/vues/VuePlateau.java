@@ -1,17 +1,28 @@
 package fr.umontpellier.iut.vues;
 
+import fr.umontpellier.iut.IJeu;
+import fr.umontpellier.iut.IRoute;
+import fr.umontpellier.iut.IVille;
+import fr.umontpellier.iut.rails.Joueur;
 import javafx.beans.binding.DoubleBinding;
+import javafx.beans.binding.ObjectBinding;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Cette classe présente les routes et les villes sur le plateau.
@@ -33,7 +44,11 @@ public class VuePlateau extends Pane {
     }
 
     @FXML
-    public void choixRouteOuVille() {
+    public void choixRouteOuVille(MouseEvent e) {
+        IJeu jeu = ((VueDuJeu) getScene().getRoot()).getJeu();
+        Node n = (Node)e.getSource();
+        jeu.uneVilleOuUneRouteAEteChoisie(n.getId());
+        System.out.println("test");
     }
 
     @FXML
@@ -44,8 +59,49 @@ public class VuePlateau extends Pane {
     private Group routes;
 
     public void creerBindings() {
+        System.out.println("test");
         bindRedimensionPlateau();
+        bindCouleurRoutePrise();
+        for(IVille v : (List<IVille>) ((VueDuJeu) getScene().getRoot()).getJeu().getVilles()){
+            v.proprietaireProperty().addListener(ecouteVille);
+        }
     }
+
+    private void bindCouleurRoutePrise(){
+        for (Node nRoute : routes.getChildren()){
+            Group gRoute = (Group) nRoute;
+            List<IRoute> listeRoutes = (List<IRoute>) ((VueDuJeu)getScene().getRoot()).getJeu().getRoutes();
+            IRoute route = listeRoutes.stream().filter(r -> r.getNom().equals(nRoute.getId())).findAny().orElse(null);
+            for (Node nRect : gRoute.getChildren()){
+                Rectangle section = (Rectangle) nRect;
+                section.fillProperty().bind(new ObjectBinding<Color>() {
+                    @Override
+                    protected Color computeValue() {
+                        return Color.TRANSPARENT;
+                    }
+                });
+                section.fillProperty().addListener((ObservableValue, point, t1) -> {
+                    DropShadow ds = new DropShadow(10, (Color) t1);
+                });
+            }
+        }
+    };
+
+    private final ChangeListener<Joueur> ecouteVille = new ChangeListener<Joueur>() {
+        @Override
+        public void changed(ObservableValue<? extends Joueur> observableValue, Joueur joueur, Joueur t1) {
+            for (Node nVille : villes.getChildren()){
+                Circle cVille = (Circle) nVille;
+                List<IVille> listeVilles = (List<IVille>) ((VueDuJeu)getScene().getRoot()).getJeu().getVilles();
+                IVille ville = listeVilles.stream().filter(v -> v.getNom().equals(nVille.getId())).findAny().orElse(null);
+                //if(ville.proprietaireProperty().getValue() != null){
+                //    if(ville.proprietaireProperty().getValue().equals(t1)){
+                //        cVille.setStyle("gare-"+ VueJoueurCourant.couleursJ.get(t1.getCartesWagon()));
+                //    }
+                //}
+            }
+        }
+    };
 
     private void bindRedimensionPlateau() {
         bindRoutes();
