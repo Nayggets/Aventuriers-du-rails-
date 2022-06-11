@@ -25,22 +25,28 @@ import javafx.scene.text.TextAlignment;
  */
 public class VueAutresJoueurs extends Pane {
 
-    private static ImageView star = new ImageView("/images/Etoile.png");
+    private ImageView star;
 
-    IJoueur joueur;
-    Label nomDuJoueur;
-    Label nombreGare;
-    Label nombreWagon;
-    Label score;
-    IntegerProperty nbGare;
-    IntegerProperty nbWagon;
-    IntegerProperty nbScore;
-    HBox box;
-    ImageView gare;
-    ImageView wagon;
-    ImageView imScore;
-    ImageView avatar;
+    private IJoueur joueur;
+    private Label nomDuJoueur;
+    private Label nombreGare;
+    private Label nombreWagon;
+    private Label score;
+    private IntegerProperty nbGare;
+    private IntegerProperty nbWagon;
+    private IntegerProperty nbScore;
+    private HBox box;
+    private ImageView gare;
+    private ImageView wagon;
+    private ImageView imScore;
+    private ImageView avatar;
 
+    private HBox h1a;
+    private HBox h1b;
+    private HBox v1;
+    private HBox h;
+    private VBox v;
+    private BorderPane bp;
     public VueAutresJoueurs(IJoueur joueur){
         nomDuJoueur = new Label(joueur.getNom());
         nombreWagon = new Label();
@@ -48,6 +54,7 @@ public class VueAutresJoueurs extends Pane {
         score = new Label();
         box = new HBox();
         this.joueur = joueur;
+        star = new ImageView("/images/Etoile.png");
         star.setFitWidth(75);
         star.setFitHeight(60);
 
@@ -61,7 +68,7 @@ public class VueAutresJoueurs extends Pane {
         this.setMinHeight(175);
 
         //---Contenu rectangle---
-        BorderPane bp = new BorderPane();
+        bp = new BorderPane();
         this.gare = new ImageView("/images/gares/gare-" + joueur.getCouleur().toString().toUpperCase() + ".png");
         this.wagon = new ImageView("/images/wagons/image-wagon-" + joueur.getCouleur().toString().toUpperCase() + ".png");
         this.imScore = new ImageView("/images/wagons/image-wagon-" + joueur.getCouleur().toString().toUpperCase() + ".png");
@@ -74,16 +81,16 @@ public class VueAutresJoueurs extends Pane {
         this.imScore.setFitHeight(75);
         this.avatar.setFitWidth(100);
         this.avatar.setFitHeight(100);
-        HBox h1a = new HBox(avatar);
+        h1a = new HBox(avatar);
         h1a.setAlignment(Pos.TOP_LEFT);
         nomDuJoueur.setStyle("-fx-font-size: 40; -fx-font-weight: bold");
-        HBox h1b = new HBox(nomDuJoueur);
+        h1b = new HBox(nomDuJoueur);
         h1b.setAlignment(Pos.CENTER);
-        HBox v1 = new HBox(h1a,h1b);
+        v1 = new HBox(h1a,h1b);
         v1.setAlignment(Pos.CENTER_LEFT);
         v1.setSpacing(20);
-        HBox h = new HBox(imScore,score,gare,nombreGare,wagon,nombreWagon);
-        VBox v = new VBox(v1,h);
+        h = new HBox(imScore,score,gare,nombreGare,wagon,nombreWagon);
+        v = new VBox(v1,h);
         bp.setCenter(v);
 
 
@@ -94,18 +101,22 @@ public class VueAutresJoueurs extends Pane {
         nombreWagon.textProperty().bind(nbWagon.asString());
         score.textProperty().bind(nbScore.asString());
         box.getChildren().addAll(v);
-
+        box.getChildren().add(star);
+        star.setVisible(false);
 
         this.getChildren().add(box);
     }
 
+    public IJoueur getJoueur() {
+        return joueur;
+    }
 
     public void putStars(){
-        box.getChildren().add(star);
+        star.setVisible(true);
     }
 
     public void removeStars(){
-        box.getChildren().remove(star);
+        star.setVisible(false);
     }
 
     private String traduceColor(String color){
