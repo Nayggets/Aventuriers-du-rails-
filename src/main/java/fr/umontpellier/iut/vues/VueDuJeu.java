@@ -56,7 +56,7 @@ public class VueDuJeu extends BorderPane {
 
     public VueDuJeu(IJeu jeu) {
 
-        Image view = new Image("/images/fondTest.jpg");
+        Image view = new Image("/images/FondJeu.png");
         this.jeu = jeu;
         //jeu.joueurCourantProperty().get().cartesWagonProperty().add(CouleurWagon.JAUNE);
         listeDestinations = new HBox();
