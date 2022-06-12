@@ -68,7 +68,7 @@ public class VueChoixJoueurs extends Stage {
         nomsJoueurs.add("joueur 4");
         nomsJoueurs.add("joueur 5");
         nb = new SimpleIntegerProperty(5);
-        Image view = new Image("/images/fondTest.jpg");
+        Image view = new Image("/images/fondJeuChoix.png");
 
 
         vBox = new VBox();
