@@ -33,11 +33,11 @@ public class RailsIHM extends Application {
 
         debut.showAndWait();
         this.primaryStage = primaryStage;
-        if (avecVueChoixJoueurs && !debut.isExited()) {
+        if (avecVueChoixJoueurs && debut.isLaunch()) {
             vueChoixJoueurs = new VueChoixJoueurs();
             vueChoixJoueurs.setNomsDesJoueursDefinisListener(quandLesNomsJoueursSontDefinis);
             vueChoixJoueurs.show();
-        } else if(!debut.isExited()){
+        } else if(debut.isLaunch()){
             demarrerPartie();
         }
     }
