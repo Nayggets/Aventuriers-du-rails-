@@ -71,14 +71,14 @@ public class VueAutresJoueurs extends Pane {
         bp = new BorderPane();
         this.gare = new ImageView("/images/gares/gare-" + joueur.getCouleur().toString().toUpperCase() + ".png");
         this.wagon = new ImageView("/images/wagons/image-wagon-" + joueur.getCouleur().toString().toUpperCase() + ".png");
-        this.imScore = new ImageView("/images/wagons/image-wagon-" + joueur.getCouleur().toString().toUpperCase() + ".png");
+        this.imScore = new ImageView("/images/rond" + joueur.getCouleur().toString().toUpperCase() + ".png");
         this.avatar = new ImageView("/images/avatar/avatar-" + joueur.getCouleur().toString().toUpperCase() + ".png");
         this.gare.setFitHeight(75);
         this.gare.setFitWidth(75);
         this.wagon.setFitWidth(75);
         this.wagon.setFitHeight(75);
-        this.imScore.setFitWidth(75);
-        this.imScore.setFitHeight(75);
+        this.imScore.setFitWidth(65);
+        this.imScore.setFitHeight(65);
         this.avatar.setFitWidth(100);
         this.avatar.setFitHeight(100);
         h1a = new HBox(avatar);

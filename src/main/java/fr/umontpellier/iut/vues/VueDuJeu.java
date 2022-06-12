@@ -70,7 +70,7 @@ public class VueDuJeu extends BorderPane {
         vueJCourDesti = new VueJoueurCourantDesti(jeu);
         piocheDesti = new VuePiocheDestination();
         piocheWagon = new VuePiocheCarteWagon();
-        //this.setBackground(new Background(new BackgroundImage(view, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
+        this.setBackground(new Background(new BackgroundImage(view, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
         plateauAndPlayer = new HBox();
 
         ImageView imageView1 = new ImageView(
@@ -179,7 +179,7 @@ public class VueDuJeu extends BorderPane {
         v.getChildren().addAll(contenuInteraction,interactionChoix,interactionJoueur);
         interactionJoueur.setSpacing(-100);
         this.setBottom(v);
-        v.setSpacing(10);
+        //v.setSpacing(10);
 
 
         final int[] j = {0};
