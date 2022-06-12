@@ -55,6 +55,12 @@ public class VueDuJeu extends BorderPane {
     private Label instructionMSG;
 
     private Button opacityMap;
+    private Button switchCarte;
+    private Button toutCarte;
+
+    private HBox contenuInteraction;
+    private HBox interactionChoix;
+    private HBox interactionJoueur;
 
 
     public VueDuJeu(IJeu jeu) {
@@ -76,6 +82,24 @@ public class VueDuJeu extends BorderPane {
         this.setBackground(new Background(new BackgroundImage(view, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
         PlateauAndPlayer = new HBox();
 
+        ImageView imageView1 = new ImageView(
+                new Image("/images/jetonB.png")//jaune/bleu
+        );
+
+        imageView1.setFitWidth(100);
+        imageView1.setFitHeight(50);
+        switchCarte = new Button("", imageView1);
+        switchCarte.setStyle("-fx-background-color: transparent");
+
+
+        ImageView imageView2 = new ImageView(
+                new Image("/images/jetonR.png")
+        );
+
+        imageView2.setFitWidth(100);
+        imageView2.setFitHeight(50);
+        toutCarte = new Button("",imageView2);
+        toutCarte.setStyle("-fx-background-color: transparent");
 
 
         ImageView imageView = new ImageView(
@@ -109,8 +133,8 @@ public class VueDuJeu extends BorderPane {
         opacityMap.setAlignment(Pos.TOP_RIGHT);
         opacityMap.setLayoutX(-50);
         opacityMap.setLayoutY(150);
-        HBox test = new HBox(opacityMap);
-        test.setPadding(new Insets(100,100,0,0));
+        HBox espacementOpacityButton = new HBox(opacityMap);
+        espacementOpacityButton.setPadding(new Insets(100,100,0,0));
         vuePlateau.getChildren().add(opacityMap);
 
         Player = new VBox();
@@ -128,30 +152,62 @@ public class VueDuJeu extends BorderPane {
         getChildren().add(PlateauAndPlayer);
 
 
-
         //cartes
-        HBox h = new HBox();
-        HBox h1 = new HBox();
-        HBox h2 = new HBox();
+        contenuInteraction = new HBox();
+        interactionChoix = new HBox();
+        interactionJoueur = new HBox();
         listeDestinations.setSpacing(5);
         Label nomJoueur = vueJCour.getNomJoueur();
         nomJoueur.setStyle("-fx-text-fill: white; -fx-font-weight: bold");
-        //h.getChildren().addAll(nomJoueur, listeDestinations,passer);
-        h.getChildren().addAll(listeDestinations);
-        h.setSpacing(10);
+        //contenuInteraction.getChildren().addAll(nomJoueur, listeDestinations,passer);
+        contenuInteraction.getChildren().addAll(listeDestinations);
+        contenuInteraction.setSpacing(10);
         piocheWagon.setRotate(90);
         piocheDesti.setRotate(90);
         cartesVisibles.setSpacing(5);
-        //h1.getChildren().addAll(piocheDesti, piocheWagon,cartesVisibles);
-        h1.getChildren().addAll(piocheDesti, piocheWagon,cartesVisibles,passer);
-        h1.setSpacing(-15);
-        h2.getChildren().addAll(vueJCour,vueJCourDesti);
-        h2.setAlignment(Pos.CENTER);
+        //interactionChoix.getChildren().addAll(piocheDesti, piocheWagon,cartesVisibles);
+        HBox passerh = new HBox(passer);
+        passerh.setPadding(new Insets(0,0,0,10));
+        HBox switchCarteh = new HBox(switchCarte);
+        //switchCarteh.setPadding(new Insets(0,0,0,10));
+        HBox toutCarteh = new HBox(toutCarte);
+        //toutCarteh.setPadding(new Insets(0,0,0,10));
+        VBox boutonSwitch = new VBox(switchCarteh,toutCarteh);
+        boutonSwitch.setSpacing(-10);
+        boutonSwitch.setPadding(new Insets(0,0,0,-20));
+        VBox bouton = new VBox(passerh,boutonSwitch);
+        bouton.setSpacing(5);
+        interactionChoix.getChildren().addAll(piocheDesti, piocheWagon,cartesVisibles,bouton);
+        interactionChoix.setSpacing(-15);
+        //interactionChoix.setPadding(new Insets(50,0,0,0));
+        interactionJoueur.getChildren().addAll(vueJCour,vueJCourDesti);
+        interactionJoueur.setAlignment(Pos.CENTER);
 
         VBox v = new VBox();
-        v.getChildren().addAll(h,h1,h2);
-        v.setSpacing(30);
+        v.getChildren().addAll(contenuInteraction,interactionChoix,interactionJoueur);
+        interactionJoueur.setSpacing(-100);
         this.setBottom(v);
+
+        v.setSpacing(10);
+
+
+        final int[] j = {0};
+        switchCarte.setOnAction(actionEvent -> {
+            if(j[0] ==1){
+                vueJCourDesti.setVisible(false);
+                vueJCour.setVisible(true);
+                j[0] =0;
+            }
+            else{
+                vueJCourDesti.setVisible(true);
+                vueJCour.setVisible(false);
+                j[0] =1;
+            }
+        });
+        toutCarte.setOnAction(actionEvent -> {
+            vueJCourDesti.setVisible(true);
+            vueJCour.setVisible(true);
+        });
     }
 
 
