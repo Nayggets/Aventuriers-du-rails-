@@ -4,19 +4,12 @@ import fr.umontpellier.iut.ICouleurWagon;
 import fr.umontpellier.iut.IDestination;
 import fr.umontpellier.iut.IJeu;
 import fr.umontpellier.iut.IJoueur;
-import fr.umontpellier.iut.rails.CouleurWagon;
-import fr.umontpellier.iut.rails.Destination;
-import fr.umontpellier.iut.rails.Jeu;
 import fr.umontpellier.iut.rails.Joueur;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Worker;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -24,9 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 
 /**
  * Cette classe correspond à la fenêtre principale de l'application.
@@ -45,7 +36,7 @@ public class VueDuJeu extends BorderPane {
     private HBox cartesVisibles;
     private VueJoueurCourant vueJCour;
     private VueJoueurCourantDesti vueJCourDesti;
-    private HBox PlateauAndPlayer;
+    private HBox plateauAndPlayer;
     private VuePlateau vuePlateau;
     private VBox Player;
     private VBox joueur;
@@ -74,7 +65,7 @@ public class VueDuJeu extends BorderPane {
         piocheDesti = new VuePiocheDestination();
         piocheWagon = new VuePiocheCarteWagon();
         this.setBackground(new Background(new BackgroundImage(view, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
-        PlateauAndPlayer = new HBox();
+        plateauAndPlayer = new HBox();
 
 
 
@@ -121,11 +112,11 @@ public class VueDuJeu extends BorderPane {
         Player.setAlignment(Pos.TOP_RIGHT);
         Player.setSpacing(30);
         //vuePlateau.setPadding(new Insets(0,0,0,100));
-        PlateauAndPlayer.getChildren().addAll(vuePlateau,Player);
-        PlateauAndPlayer.setPadding(new Insets(0,100,0,100));
-        PlateauAndPlayer.setAlignment(Pos.TOP_LEFT);
+        plateauAndPlayer.getChildren().addAll(vuePlateau,Player);
+        plateauAndPlayer.setPadding(new Insets(0,100,0,100));
+        plateauAndPlayer.setAlignment(Pos.TOP_LEFT);
         //PlateauAndPlayer.setSpacing(0);
-        getChildren().add(PlateauAndPlayer);
+        getChildren().add(plateauAndPlayer);
 
 
 
