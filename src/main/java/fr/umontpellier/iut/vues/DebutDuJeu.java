@@ -10,6 +10,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
+
 public class DebutDuJeu extends Stage {
     private VBox vBox;
     private boolean launch = false;
@@ -35,6 +38,11 @@ public class DebutDuJeu extends Stage {
         rule = new Button();
         rule.setStyle("-fx-background-color: transparent;");
         rule.setGraphic(new ImageView("/images/option.png"));
+        rule.setOnAction(actionEvent -> {
+            menu.getChildren().set(0,regleButton);
+            nbRule = 0;
+            regleButton.getChildren().set(1,regle.get(0));
+        });
         play = new Button();
         play.setStyle("-fx-background-color: transparent;");
         play.setGraphic(new ImageView("/images/play.png"));
@@ -103,16 +111,19 @@ public class DebutDuJeu extends Stage {
         right.setGraphic(new ImageView("/images/Right.png"));
         regleButton.getChildren().add(right);
         play.setOnAction(actionEvent -> {
+            launch = true;
             this.close();
         });
         exit.setOnAction(actionEvent -> {
-            exited = true;
+
             this.close();
         });
         menu = new HBox();
         menu.setBackground(new Background(new BackgroundImage(view, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, new BackgroundSize(BackgroundSize.AUTO,BackgroundSize.AUTO,true,true,true,true))));
 
-        Scene scene = new Scene(vBox);
+        Scene scene = new Scene(menu);
+        menu.setAlignment(Pos.CENTER);
+        menu.getChildren().add(vBox);
         this.setMaximized(true);
         this.setFullScreen(true);
         this.setScene(scene);
