@@ -79,7 +79,7 @@ public class VueJoueurCourant extends VBox {
                     });
                     vue.setOnMouseClicked(mouseEvent -> {
                         jeu.uneCarteWagonAEteChoisie(((VueCarteWagon) mouseEvent.getSource()).getCouleurWagon());
-                        cartesJoueurCourant.getChildren().remove((VueCarteWagon) mouseEvent.getSource());
+                        //cartesJoueurCourant.getChildren().remove((VueCarteWagon) mouseEvent.getSource());
                     });
                     cartesJoueurCourant.getChildren().add(vue);
                 }

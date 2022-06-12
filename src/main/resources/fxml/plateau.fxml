@@ -5,18 +5,16 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="855.66" prefWidth="1326.78" stylesheets="@../css/style.css" type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-   <HBox layoutX="121.0" layoutY="691.0" prefHeight="97.0" prefWidth="632.0" spacing="15.0" />
-   <HBox layoutX="91.0" layoutY="653.0" prefHeight="28.0" prefWidth="895.0" spacing="14.0" />
-   <Group layoutX="-173.0" layoutY="-107.0" scaleX="0.75" scaleY="0.75">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="809.0" prefWidth="1327.0" stylesheets="@../css/style.css" type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+
+    <Group layoutX="-320" layoutY="-135.0" scaleX="0.75" scaleY="0.75">
+
       <children>
-          <ImageView fitHeight="855.66" fitWidth="1326.78" pickOnBounds="true" preserveRatio="true" fx:id="image">
+          <ImageView fx:id="image" fitHeight="855.66" fitWidth="1326.78" pickOnBounds="true" preserveRatio="true">
               <Image url="@../images/euMap.jpg" />
           </ImageView>
           <Group fx:id="routes">
@@ -523,8 +521,7 @@
                   <Rectangle height="15.600000000000001" layoutX="714.87" layoutY="471.51" rotate="-86.8778695378843" width="46.800000000000004" x="-23.400000000000002" y="-7.800000000000001" />
               </Group>
           </Group>
-      
-                               <Group fx:id="villes">
+          <Group fx:id="villes">
               <Circle id="Cadiz" layoutX="112.32000000000001" layoutY="836.1600000000001" onMouseClicked="#choixRouteOuVille" radius="9.36" />
               <Circle id="Madrid" layoutX="114.66000000000001" layoutY="737.88" onMouseClicked="#choixRouteOuVille" radius="9.36" />
               <Circle id="Barcelona" layoutX="262.08" layoutY="749.58" onMouseClicked="#choixRouteOuVille" radius="9.36" />
@@ -575,5 +572,9 @@
           </Group>
       </children>
    </Group>
-   <VBox layoutX="1005.0" layoutY="22.0" prefHeight="619.0" prefWidth="303.0" spacing="10.0" />
+    <ImageView fitHeight="600.0" fitWidth="430.0" layoutX="1300" layoutY="925" rotate="90.0">
+      <image>
+         <Image url="@../images/instruction.png" />
+      </image>
+   </ImageView>
 </fx:root>

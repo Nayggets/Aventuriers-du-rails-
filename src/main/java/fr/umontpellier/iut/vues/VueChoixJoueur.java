@@ -1,5 +1,6 @@
 package fr.umontpellier.iut.vues;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -40,7 +41,7 @@ public class VueChoixJoueur extends Pane {
                 view.setFitHeight(100);
                 view.setFitWidth(100);
                 box.getChildren().add(view);
-                this.setStyle("-fx-background-color:red " );
+                this.setStyle("-fx-background-color:#cb3939 " );
                 break;
             }
             case 1:
@@ -49,7 +50,7 @@ public class VueChoixJoueur extends Pane {
                 view.setFitHeight(100);
                 view.setFitWidth(100);
                 box.getChildren().add(view);
-                this.setStyle("-fx-background-color:blue " );
+                this.setStyle("-fx-background-color:#4a4ad7 " );
                 break;
             }
             case 2:
@@ -58,7 +59,7 @@ public class VueChoixJoueur extends Pane {
                 view.setFitHeight(100);
                 view.setFitWidth(100);
                 box.getChildren().add(view);
-                this.setStyle("-fx-background-color:green " );
+                this.setStyle("-fx-background-color:#3da93d " );
                 break;
             }
             case 3:
@@ -67,7 +68,7 @@ public class VueChoixJoueur extends Pane {
                 view.setFitHeight(100);
                 view.setFitWidth(100);
                 box.getChildren().add(view);
-                this.setStyle("-fx-background-color:yellow " );
+                this.setStyle("-fx-background-color:#e0e03f " );
                 break;
             }
             case 4:

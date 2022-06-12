@@ -35,7 +35,7 @@ public class VueDestination extends Button {
         view.setFitWidth(150);
         view.setFitHeight(120);
         this.setGraphic(view);
-
+        setStyle("-fx-background-color: transparent;");
     }
 
 

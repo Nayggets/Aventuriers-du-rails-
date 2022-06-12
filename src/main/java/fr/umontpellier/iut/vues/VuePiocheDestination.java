@@ -12,5 +12,7 @@ public class VuePiocheDestination extends Button {
         carteRetourner.setFitWidth(150);
         carteRetourner.setFitHeight(120);
         this.setGraphic(carteRetourner);
+        setStyle("-fx-background-color: transparent;");
+
     }
 }

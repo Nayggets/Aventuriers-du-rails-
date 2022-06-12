@@ -37,6 +37,8 @@ public class VueCarteWagon extends Button {
         }
 
         this.setGraphic(view);
+        setStyle("-fx-background-color: transparent;");
+
 
     }
 

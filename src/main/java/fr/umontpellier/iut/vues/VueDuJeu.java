@@ -16,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -23,6 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
@@ -52,10 +54,12 @@ public class VueDuJeu extends BorderPane {
     private VuePiocheCarteWagon piocheWagon;
     private Label instructionMSG;
 
+    private Button opacityMap;
+
 
     public VueDuJeu(IJeu jeu) {
 
-        Image view = new Image("/images/test5.jpg");
+        Image view = new Image("/images/fondTest.jpg");
         this.jeu = jeu;
         //jeu.joueurCourantProperty().get().cartesWagonProperty().add(CouleurWagon.JAUNE);
         listeDestinations = new HBox();
@@ -72,12 +76,43 @@ public class VueDuJeu extends BorderPane {
         this.setBackground(new Background(new BackgroundImage(view, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
         PlateauAndPlayer = new HBox();
 
+
+
+        ImageView imageView = new ImageView(
+                new Image("/images/toggle-button.png")
+        );
+        opacityMap = new Button("", imageView);
+        opacityMap.setStyle("-fx-background-color: transparent");
+
+
         instructionMSG = new Label();
-        instructionMSG.setStyle("-fx-text-fill: white; -fx-font-weight: bold");
+        instructionMSG.setStyle("-fx-font-weight: bold;-fx-font-size: 18");
+        instructionMSG.setPadding(new Insets(20,0,0,0));
+        //instructionMSG.setLayoutX(250.0);
+        //instructionMSG.setLayoutX(250.0);
+
 
         //-----Paramètres visuels-----
 
         //plateau + joueur
+        final int[] i = {0};
+        opacityMap.setOnAction(actionEvent -> {
+            if(i[0] ==0){
+                vuePlateau.setOpacity(0.75);//opacity only map et pas wagon posé
+                i[0] =1;
+            }
+            else{
+                vuePlateau.setOpacity(1);
+                i[0] =0;
+            }
+        });
+        opacityMap.setAlignment(Pos.TOP_RIGHT);
+        opacityMap.setLayoutX(-50);
+        opacityMap.setLayoutY(150);
+        HBox test = new HBox(opacityMap);
+        test.setPadding(new Insets(100,100,0,0));
+        vuePlateau.getChildren().add(opacityMap);
+
         Player = new VBox();
         for(Joueur j : getJeu().getJoueurs()){
             Player.getChildren().add(new VueAutresJoueurs(j));
@@ -85,8 +120,11 @@ public class VueDuJeu extends BorderPane {
         Player.getChildren().add(instructionMSG);
         Player.setAlignment(Pos.TOP_RIGHT);
         Player.setSpacing(30);
+        //vuePlateau.setPadding(new Insets(0,0,0,100));
         PlateauAndPlayer.getChildren().addAll(vuePlateau,Player);
-        PlateauAndPlayer.setSpacing(10);
+        PlateauAndPlayer.setPadding(new Insets(0,100,0,100));
+        PlateauAndPlayer.setAlignment(Pos.TOP_LEFT);
+        //PlateauAndPlayer.setSpacing(0);
         getChildren().add(PlateauAndPlayer);
 
 
@@ -98,12 +136,14 @@ public class VueDuJeu extends BorderPane {
         listeDestinations.setSpacing(5);
         Label nomJoueur = vueJCour.getNomJoueur();
         nomJoueur.setStyle("-fx-text-fill: white; -fx-font-weight: bold");
-        h.getChildren().addAll(nomJoueur, listeDestinations,passer);
+        //h.getChildren().addAll(nomJoueur, listeDestinations,passer);
+        h.getChildren().addAll(listeDestinations);
         h.setSpacing(10);
         piocheWagon.setRotate(90);
         piocheDesti.setRotate(90);
         cartesVisibles.setSpacing(5);
-        h1.getChildren().addAll(piocheDesti, piocheWagon,cartesVisibles);
+        //h1.getChildren().addAll(piocheDesti, piocheWagon,cartesVisibles);
+        h1.getChildren().addAll(piocheDesti, piocheWagon,cartesVisibles,passer);
         h1.setSpacing(-15);
         h2.getChildren().addAll(vueJCour,vueJCourDesti);
         h2.setAlignment(Pos.CENTER);
@@ -113,6 +153,8 @@ public class VueDuJeu extends BorderPane {
         v.setSpacing(30);
         this.setBottom(v);
     }
+
+
 
     public boolean isDebutPasser() {
         return debutPasser;
@@ -183,6 +225,9 @@ public class VueDuJeu extends BorderPane {
         piocheWagon.setOnAction(actionEvent -> {
             jeu.uneCarteWagonAEtePiochee();
         });
+
+        vuePlateau.prefWidthProperty().bind(getScene().widthProperty().multiply(0.65));
+
 
     }
 

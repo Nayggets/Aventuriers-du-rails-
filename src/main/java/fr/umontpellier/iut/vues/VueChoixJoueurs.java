@@ -15,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.SetChangeListener;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -67,9 +68,11 @@ public class VueChoixJoueurs extends Stage {
         nomsJoueurs.add("joueur 4");
         nomsJoueurs.add("joueur 5");
         nb = new SimpleIntegerProperty(5);
-        Image view = new Image("/images/test5.jpg");
+        Image view = new Image("/images/fondTest.jpg");
+
+
         vBox = new VBox();
-        goPlay = new Button("Launch");
+        goPlay = new Button("Lancer");
         goPlay.setOnAction(actionEvent -> {
             launch = true;
             nomsJoueurs.add("a");
@@ -80,8 +83,10 @@ public class VueChoixJoueurs extends Stage {
         Scene scene = new Scene(vBox);
         this.setScene(scene);
         button = new HBox();
-        dec = new Button("-");
-        inc = new Button("+");
+        dec = new Button("retirer (-)");
+        dec.setStyle("-fx-background-color: red");
+        inc = new Button("ajouter (+)");
+        inc.setStyle("-fx-background-color: green");
         dec.setOnAction(actionEvent -> {
             if(nb.getValue() > 2){
 
@@ -94,19 +99,32 @@ public class VueChoixJoueurs extends Stage {
                 nb.setValue(nb.getValue() + 1);
             }
         });
-        button.getChildren().add(dec);
-        button.getChildren().add(inc);
-        button.getChildren().add(goPlay);
+        vBox.setPadding(new Insets(100,100,100,100));
+
+        //---paramètres visuels boutons----
+        HBox hbutton = new HBox(dec,inc);
+        hbutton.setSpacing(10);
+        hbutton.setPadding(new Insets(5,0,0,0));
+        VBox vbutton = new VBox(hbutton,goPlay);
+        vbutton.setSpacing(100);
+        vbutton.setAlignment(Pos.CENTER);
+
+        goPlay.setMaxHeight(100);
+        goPlay.setMaxWidth(150);
+        goPlay.setStyle("-fx-background-color: #adadad;-fx-font-size: 20");
+        //button.setSpacing(10);
+        //button.setPadding(new Insets(10,10,10,10));
+        button.getChildren().add(vbutton);
 
 
 
         vBox.getChildren().add(joueurEntrerNom);
         vBox.getChildren().add(button);
 
-
         joueurEntrerNom.setAlignment(Pos.CENTER);
         button.setAlignment(Pos.CENTER);
         creerBindings();
+
     }
 
     /**

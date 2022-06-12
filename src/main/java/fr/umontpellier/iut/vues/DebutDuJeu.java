@@ -1,9 +1,12 @@
 package fr.umontpellier.iut.vues;
 
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,6 +14,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 
 public class DebutDuJeu extends Stage {
@@ -51,6 +55,8 @@ public class DebutDuJeu extends Stage {
         exit.setGraphic(new ImageView("/images/exit.png"));
         vBox = new VBox();
 
+
+        //----règles------
         ImageView view0 = new ImageView("/images/canvas.png");
         view0.setFitHeight(1200);
         view0.setFitWidth(1200);
@@ -79,6 +85,7 @@ public class DebutDuJeu extends Stage {
         regleButton = new HBox();
         regleButton.setSpacing(0);
         left = new Button();
+        left.setStyle("-fx-background-color: transparent;");
         left.setOnAction(actionEvent -> {
             if(nbRule > 0){
                 nbRule--;
@@ -95,6 +102,7 @@ public class DebutDuJeu extends Stage {
         regleButton.getChildren().add(view0);
 
         right = new Button();
+        right.setStyle("-fx-background-color: transparent;");
         right.setOnAction(actionEvent -> {
             if(nbRule < 5){
                 nbRule++;
@@ -115,7 +123,6 @@ public class DebutDuJeu extends Stage {
             this.close();
         });
         exit.setOnAction(actionEvent -> {
-
             this.close();
         });
         menu = new HBox();
@@ -147,11 +154,16 @@ public class DebutDuJeu extends Stage {
         //top droite bottom gauche
         root.setBottom(bottom);
 
+
         BorderPane top = new BorderPane();
         top.setRight(rule);
         root.setTop(top);
 
         vBox.getChildren().addAll(root);
+
+
+
+
     }
 
     public boolean isLaunch(){
