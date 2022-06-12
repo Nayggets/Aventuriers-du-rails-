@@ -22,7 +22,7 @@ public class VueChoixJoueur extends Pane {
         nb = i;
         b = new Button("change");
         box = new HBox();
-        t = new TextField("Joueur " +String.valueOf(i));
+        t = new TextField("Joueur " +String.valueOf(i+1));
         box.setAlignment(Pos.CENTER);
         ImageView view;
         this.setMinWidth(400);
