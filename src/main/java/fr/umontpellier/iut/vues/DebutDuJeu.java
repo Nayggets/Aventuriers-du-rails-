@@ -143,7 +143,7 @@ public class DebutDuJeu extends Stage {
         vBox.getChildren().addAll(root);
     }
 
-    public boolean isExited(){
-        return exited;
+    public boolean isLaunch(){
+        return launch;
     }
 }
