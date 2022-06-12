@@ -230,7 +230,7 @@ public class VueChoixJoueurs extends Stage {
                         TextField t = new TextField();
 
                         joueurEntrerNom.getChildren().add(new VueChoixJoueur(i,VueChoixJoueurs.this));
-                        nomsJoueurs.add("Joueur " + String.valueOf(i));
+                        nomsJoueurs.add("Joueur " + String.valueOf(i+1));
                         i++;
                     }
                 }
