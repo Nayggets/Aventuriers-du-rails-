@@ -70,7 +70,7 @@ public class VueDuJeu extends BorderPane {
         vueJCourDesti = new VueJoueurCourantDesti(jeu);
         piocheDesti = new VuePiocheDestination();
         piocheWagon = new VuePiocheCarteWagon();
-        this.setBackground(new Background(new BackgroundImage(view, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
+        //this.setBackground(new Background(new BackgroundImage(view, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
         plateauAndPlayer = new HBox();
 
         ImageView imageView1 = new ImageView(
@@ -103,8 +103,8 @@ public class VueDuJeu extends BorderPane {
         instructionMSG = new Label();
         instructionMSG.setStyle("-fx-font-weight: bold;-fx-font-size: 18");
         instructionMSG.setPadding(new Insets(20,0,0,0));
-        //instructionMSG.setLayoutX(250.0);
-        //instructionMSG.setLayoutX(250.0);
+        instructionMSG.translateXProperty().set(500);
+        instructionMSG.translateYProperty().set(10);
 
 
         //-----Paramètres visuels-----
@@ -132,7 +132,8 @@ public class VueDuJeu extends BorderPane {
         for(Joueur j : getJeu().getJoueurs()){
             Player.getChildren().add(new VueAutresJoueurs(j));
         }
-        Player.getChildren().add(instructionMSG);
+
+
         Player.setAlignment(Pos.TOP_RIGHT);
         Player.setSpacing(30);
         //vuePlateau.setPadding(new Insets(0,0,0,100));
@@ -171,14 +172,13 @@ public class VueDuJeu extends BorderPane {
         interactionChoix.getChildren().addAll(piocheDesti, piocheWagon,cartesVisibles,bouton);
         interactionChoix.setSpacing(-15);
         //interactionChoix.setPadding(new Insets(50,0,0,0));
-        interactionJoueur.getChildren().addAll(vueJCour,vueJCourDesti);
+        interactionJoueur.getChildren().addAll(vueJCour,vueJCourDesti,instructionMSG);
         interactionJoueur.setAlignment(Pos.CENTER);
 
         VBox v = new VBox();
         v.getChildren().addAll(contenuInteraction,interactionChoix,interactionJoueur);
         interactionJoueur.setSpacing(-100);
         this.setBottom(v);
-
         v.setSpacing(10);
 
 
