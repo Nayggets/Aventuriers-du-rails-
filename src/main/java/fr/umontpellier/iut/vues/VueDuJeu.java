@@ -151,7 +151,7 @@ public class VueDuJeu extends BorderPane {
         Label nomJoueur = vueJCour.getNomJoueur();
         nomJoueur.setStyle("-fx-text-fill: white; -fx-font-weight: bold");
         //contenuInteraction.getChildren().addAll(nomJoueur, listeDestinations,passer);
-        contenuInteraction.getChildren().addAll(listeDestinations);
+
         contenuInteraction.setSpacing(10);
         piocheWagon.setRotate(90);
         piocheDesti.setRotate(90);
@@ -287,7 +287,9 @@ public class VueDuJeu extends BorderPane {
         public void onChanged(Change<? extends IDestination> change ) {
             Platform.runLater(() -> {
                 while (change.next()) {
+
                     if (change.wasAdded()) {
+                        interactionChoix.getChildren().set(2,listeDestinations);
                         for (int i = 0; i < change.getAddedSize(); i++) {
                             VueDestination vue = new VueDestination(change.getAddedSubList().get(i));
                             vue.setOnAction(actionEvent -> {
@@ -302,6 +304,9 @@ public class VueDuJeu extends BorderPane {
                     if(change.wasRemoved()){
                         for (int i = 0; i < change.getRemovedSize(); i++) {
                             listeDestinations.getChildren().remove(trouveVuDestination(change.getRemoved().get(i)));
+                        }
+                        if(listeDestinations.getChildren().isEmpty()){
+                            interactionChoix.getChildren().set(2,cartesVisibles);
                         }
                     }
                     if(change.wasUpdated()){
@@ -351,8 +356,6 @@ public class VueDuJeu extends BorderPane {
                     if (change.wasAdded()) {
                         for (int i = 0; i < change.getAddedSize(); i++) {
                             VueCarteWagon vue = new VueCarteWagon(change.getAddedSubList().get(i),false);
-
-
                             cartesVisibles.getChildren().add(vue);
                         }
                     }
@@ -360,6 +363,7 @@ public class VueDuJeu extends BorderPane {
                         for (int i = 0; i < change.getRemovedSize(); i++) {
                             cartesVisibles.getChildren().remove(trouveCarteVagon(change.getRemoved().get(i)));
                         }
+
                     }
                 }
             });
